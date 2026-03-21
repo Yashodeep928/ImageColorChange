@@ -10,12 +10,14 @@ img.onload = function () {
 };
 
 // Convert hex color (#ff0000) to RGB
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return { r, g, b };
+
+function hextoRgb (hex){
+  const r = hex.slice(1,3)
+  const g = hex.slice(3,5)
+  const b = hex.slice(5,7)
+  return r,g,b
 }
+
 
 // Check if two colors are similar
 function isSimilarColor(r1, g1, b1, r2, g2, b2, tolerance) {
