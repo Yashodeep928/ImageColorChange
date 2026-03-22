@@ -12,21 +12,21 @@ img.onload = function () {
 // Convert hex color (#ff0000) to RGB
 
 function hextoRgb (hex){
-  const r = hex.slice(1,3)
-  const g = hex.slice(3,5)
-  const b = hex.slice(5,7)
+  const r = parseInt(hex.slice(1,3))
+  const g = parseInt(hex.slice(3,5))
+  const b = parseInt(hex.slice(5,7))
   return r,g,b
 }
 
 
 // Check if two colors are similar
-function isSimilarColor(r1, g1, b1, r2, g2, b2, tolerance) {
-  return (
-    Math.abs(r1 - r2) <= tolerance &&
-    Math.abs(g1 - g2) <= tolerance &&
-    Math.abs(b1 - b2) <= tolerance
-  );
+function isSimilarColor(r1,g1,b1,r2,g2,b2,tolerance){
+  Math.abs(r2-r1) <= tolerance
+  Math.abs(g2-g1) <= tolerance
+  Math.abs(b2-b1) <= tolerance
+
 }
+
 
 canvas.addEventListener("click", function (e) {
   const rect = canvas.getBoundingClientRect();
