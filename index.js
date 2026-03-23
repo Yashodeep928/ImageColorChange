@@ -72,13 +72,11 @@ canvas.addEventListener("click", function (e) {
       pixels[i] = r * 0.4 + newColor.r *0.6;
       pixels[i+1] = g * 0.4 + newColor.g *0.6;
       pixels[i + 2] = b * 0.4 + newColor.b * 0.6; 
-
-
     }
-
 
   }
 
   // Put updated pixels back on canvas
-  ctx.putImageData(imageData, 0, 0);
+    ctx.putImageData(imageData, 0, 0);
+
 });
