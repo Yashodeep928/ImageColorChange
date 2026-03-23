@@ -39,6 +39,9 @@ canvas.addEventListener("click", function (e) {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const pixels = imageData.data;
 
+
+  console.log("Your pixels",pixels)
+
   // Get clicked pixel color
   const clickedIndex = (y * canvas.width + x) * 4;
   const targetR = pixels[clickedIndex];
@@ -48,7 +51,10 @@ canvas.addEventListener("click", function (e) {
   console.log("Clicked color:", targetR, targetG, targetB);
 
   // Selected new color from picker
-  const newColor = hexToRgb(colorPicker.value);
+  const newColor = hextoRgb(colorPicker.value);
+
+
+  console.log(`your new color ${newColor}`)
 
   // Tolerance (adjust this)
   const tolerance = 45;
@@ -60,13 +66,17 @@ canvas.addEventListener("click", function (e) {
     const b = pixels[i + 2];
 
     // If pixel is similar to clicked color
-    if (isSimilarColor(r, g, b, targetR, targetG, targetB, tolerance)) {
-     
-      pixels[i] = r * 0.4 + newColor.r * 0.6;       
-      pixels[i + 1] = g * 0.4 + newColor.g * 0.6;  
-      pixels[i + 2] = b * 0.4 + newColor.b * 0.6;   
-      
+          
+    if(isSimilarColor(r,g,b,targetR,targetG,targetB,tolerance)){
+
+      pixels[i] = r * 0.4 + newColor.r *0.6;
+      pixels[i+1] = g * 0.4 + newColor.g *0.6;
+      pixels[i + 2] = b * 0.4 + newColor.b * 0.6; 
+
+
     }
+
+
   }
 
   // Put updated pixels back on canvas
