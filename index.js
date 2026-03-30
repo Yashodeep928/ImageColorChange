@@ -1,82 +1,12 @@
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
-const colorPicker = document.getElementById("colorPicker");
+const bg = document.getElementById("my-bg")
 
-const img = new Image();
-img.src = "scooty.jpg";
+bg.addEventListener("click",myFunction)
 
-img.onload = function () {
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-};
 
-// Convert hex color (#ff0000) to RGB
-
-function hextoRgb (hex){
-  const r = parseInt(hex.slice(1,3))
-  const g = parseInt(hex.slice(3,5))
-  const b = parseInt(hex.slice(5,7))
-  return r,g,b
+function myFunction(){
+  var colorR  = Math.floor(Math.random() * 256);
+  var colorG  = Math.floor(Math.random() * 256);
+  var colorB  = Math.floor(Math.random() * 256);
+  var color = "rgb(" + colorR + "," + colorG + "," + colorB + ")";
+  bg.style.backgroundColor = color;
 }
-
-
-// Check if two colors are similar
-function isSimilarColor(r1,g1,b1,r2,g2,b2,tolerance){
-  Math.abs(r2-r1) <= tolerance
-  Math.abs(g2-g1) <= tolerance
-  Math.abs(b2-b1) <= tolerance
-
-}
-
-
-canvas.addEventListener("click", function (e) {
-  const rect = canvas.getBoundingClientRect();
-
-  // Mouse position on canvas
-  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
-  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
-
-  // Get all pixel data
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const pixels = imageData.data;
-
-
-  console.log("Your pixels",pixels)
-
-  // Get clicked pixel color
-  const clickedIndex = (y * canvas.width + x) * 4;
-  const targetR = pixels[clickedIndex];
-  const targetG = pixels[clickedIndex + 1];
-  const targetB = pixels[clickedIndex + 2];
-
-  console.log("Clicked color:", targetR, targetG, targetB);
-
-  // Selected new color from picker
-  const newColor = hextoRgb(colorPicker.value);
-
-
-  console.log(`your new color ${newColor}`)
-
-  // Tolerance (adjust this)
-  const tolerance = 45;
-
-  // Loop through all pixels
-  for (let i = 0; i < pixels.length; i += 4) {
-    const r = pixels[i];
-    const g = pixels[i + 1];
-    const b = pixels[i + 2];
-
-    // If pixel is similar to clicked color
-          
-    if(isSimilarColor(r,g,b,targetR,targetG,targetB,tolerance)){
-
-      pixels[i] = r * 0.4 + newColor.r *0.6;
-      pixels[i+1] = g * 0.4 + newColor.g *0.6;
-      pixels[i + 2] = b * 0.4 + newColor.b * 0.6; 
-    }
-
-  }
-
-  // Put updated pixels back on canvas
-    ctx.putImageData(imageData, 0, 0);
-
-});
